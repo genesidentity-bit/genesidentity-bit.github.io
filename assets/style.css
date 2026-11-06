@@ -1,0 +1,104 @@
+/* The Symbol — Design your story */
+:root{
+  --ardesia:#617179;
+  --nero:#0b0c0d;
+  --inchiostro:#1a1d1f;
+  --avorio:#f4f0ec;
+  --linea:#c9ced1;
+  --sans:"freight-sans-pro","Gill Sans","Gill Sans MT","Helvetica Neue",Arial,sans-serif;
+  --serif:"freight-text-pro",Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:var(--sans);font-weight:400;color:var(--ardesia);background:#fff;
+  -webkit-font-smoothing:antialiased;line-height:1.7;letter-spacing:.02em}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+
+/* ——— Navigazione ——— */
+.nav{position:fixed;inset:0 0 auto 0;z-index:10;display:flex;justify-content:space-between;
+  align-items:center;padding:28px 48px}
+.nav .marchio img{height:30px;width:auto}
+.nav ul{list-style:none;display:flex;gap:36px;margin:0;padding:0;
+  font-size:.78rem;letter-spacing:.18em;text-transform:uppercase}
+.nav a{opacity:.75;transition:opacity .3s}
+.nav a:hover,.nav a[aria-current]{opacity:1}
+.nav--chiara{color:#fff}
+.nav--scura{color:var(--inchiostro);background:rgba(255,255,255,.92);backdrop-filter:blur(6px)}
+
+/* ——— HOME: la soglia ——— */
+.soglia{position:relative;height:100vh;min-height:560px;overflow:hidden;color:#fff;
+  background:linear-gradient(90deg,#0b0c0d 0%,#111416 49.8%,#5d6a71 50.2%,#46525a 100%)}
+.soglia::before{content:"";position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 50%,rgba(0,0,0,0) 30%,rgba(0,0,0,.55) 100%)}
+.fessura{position:absolute;left:50%;top:24%;height:52%;width:2px;transform:translateX(-50%);
+  background:linear-gradient(180deg,transparent,#e8eef1 12%,#fff 50%,#e8eef1 88%,transparent);
+  box-shadow:0 0 18px 2px rgba(230,240,245,.35),18px 0 90px 30px rgba(140,160,170,.18);
+  animation:apri 2.4s cubic-bezier(.2,.7,.2,1) both}
+@keyframes apri{from{height:0;top:50%;opacity:0}to{height:52%;top:24%;opacity:1}}
+.soglia .logo{position:absolute;left:50%;top:12%;transform:translateX(-50%);width:min(240px,46vw);
+  animation:emergi 2s .6s both}
+.soglia .claim{position:absolute;left:50%;bottom:11%;transform:translateX(-50%);margin:0;
+  font-size:.8rem;letter-spacing:.24em;text-transform:uppercase;white-space:nowrap;animation:emergi 2s 1.2s both}
+.scorri{position:absolute;left:50%;bottom:28px;transform:translateX(-50%);width:1px;height:44px;
+  background:rgba(255,255,255,.5);animation:emergi 2s 1.8s both}
+@keyframes emergi{from{opacity:0}to{opacity:1}}
+
+/* ——— PAGINE INTERNE: l'asse ——— */
+.asse{position:relative;padding:180px 48px 120px}
+.asse::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--linea)}
+.etichetta{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ardesia)}
+h1,h2,h3{font-family:var(--serif);font-weight:400;color:var(--ardesia);letter-spacing:.03em;line-height:1.2}
+h1{font-size:clamp(2rem,4vw,3rem);margin:.3em 0 0}
+h2{font-size:clamp(1.5rem,2.6vw,2rem)}
+
+/* intestazione centrata sull'asse */
+.titolo{position:relative;text-align:center;background:#fff;padding:24px 0;margin:0 auto 120px;max-width:520px}
+
+/* blocchi alternati ai lati dell'asse */
+.riga{display:grid;grid-template-columns:1fr 1fr;gap:96px;margin:0 auto 140px;max-width:1200px;align-items:center}
+.riga > *{position:relative}
+.riga--inversa > :first-child{order:2}
+.testo{max-width:440px;font-size:1rem}
+.riga .testo{justify-self:end}
+.riga--inversa .testo{justify-self:start}
+.testo p{margin:0 0 1em}
+.testo strong{font-weight:600}
+
+/* copertina progetto */
+.copertina{aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;overflow:hidden;
+  background:var(--ardesia);color:#fff;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+a:hover .copertina{transform:scale(1.015)}
+.copertina--luce{background:linear-gradient(90deg,#0b0c0d 49.6%,#5d6a71 50.4%)}
+.copertina--avorio{background:linear-gradient(155deg,#8a8486 38%,var(--avorio) 38.5%);color:var(--inchiostro)}
+.copertina span{font-family:var(--serif);font-size:1.4rem;letter-spacing:.06em}
+
+/* elenco valori */
+.valori{list-style:none;padding:0;margin:0;columns:2;column-gap:64px;max-width:900px;margin:0 auto}
+.valori li{break-inside:avoid;margin:0 0 1.2em;padding-left:16px;border-left:1px solid var(--linea)}
+.valori b{display:block;font-weight:600;letter-spacing:.06em}
+
+/* contatti */
+.contatto{text-align:center;position:relative;background:#fff;max-width:560px;margin:0 auto;padding:32px 0}
+.contatto a.grande{font-family:var(--serif);font-size:clamp(1.4rem,3vw,2.2rem);border-bottom:1px solid var(--linea)}
+
+/* piede */
+.piede{display:flex;justify-content:space-between;padding:28px 48px;font-size:.75rem;
+  letter-spacing:.14em;text-transform:uppercase;border-top:1px solid var(--linea);background:#fff;position:relative}
+
+/* ——— mobile ——— */
+@media (max-width:760px){
+  .nav{padding:20px 22px}
+  .nav ul{gap:18px;font-size:.68rem}
+  .nav .marchio img{height:24px}
+  .asse{padding:130px 24px 80px}
+  .asse::before{left:24px}
+  .titolo{text-align:left;margin-left:0;padding-left:24px}
+  .riga,.riga--inversa{grid-template-columns:1fr;gap:28px;padding-left:24px;margin-bottom:90px}
+  .riga--inversa > :first-child{order:0}
+  .riga .testo{justify-self:start}
+  .valori{columns:1;padding-left:24px}
+  .contatto{text-align:left;padding-left:24px}
+  .piede{flex-direction:column;gap:6px;padding:22px 24px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
