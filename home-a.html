@@ -10,7 +10,7 @@
 <style>
 /* OPZIONE A — L'asse. Ardesia piatta, una linea bianca che si disegna e si ferma per lasciare posto al nome. */
 .a{position:relative;height:100vh;min-height:560px;background:var(--ardesia);color:#fff;overflow:hidden}
-.a .linea{position:absolute;left:50%;width:1px;background:#fff;transform:translateX(-50%)}
+.a .linea{position:absolute;z-index:1;left:50%;width:1px;background:#fff;transform:translateX(-50%)}
 .a .su{top:0;height:calc(50% - 120px);transform-origin:top;animation:cresce 1.4s cubic-bezier(.6,0,.2,1) both}
 .a .giu{bottom:0;height:calc(50% - 120px);transform-origin:bottom;animation:cresce 1.4s cubic-bezier(.6,0,.2,1) both}
 @keyframes cresce{from{transform:translateX(-50%) scaleY(0)}to{transform:translateX(-50%) scaleY(1)}}
