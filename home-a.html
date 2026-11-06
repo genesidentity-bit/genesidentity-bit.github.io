@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Symbol — Design your story · Opzione A</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/logo.svg">
+<link rel="stylesheet" href="assets/style.css?v=5">
+<style>
+/* OPZIONE A — L'asse. Ardesia piatta, una linea bianca che si disegna e si ferma per lasciare posto al nome. */
+.a{position:relative;height:100vh;min-height:560px;background:var(--ardesia);color:#fff;overflow:hidden}
+.a .linea{position:absolute;left:50%;width:1px;background:#fff;transform:translateX(-50%)}
+.a .su{top:0;height:calc(50% - 120px);transform-origin:top;animation:cresce 1.4s cubic-bezier(.6,0,.2,1) both}
+.a .giu{bottom:0;height:calc(50% - 120px);transform-origin:bottom;animation:cresce 1.4s cubic-bezier(.6,0,.2,1) both}
+@keyframes cresce{from{transform:translateX(-50%) scaleY(0)}to{transform:translateX(-50%) scaleY(1)}}
+.a .centro{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:34px}
+.a .centro img{width:min(260px,52vw);animation:emergi 1.4s 1.1s both}
+.a .claim{margin:0;font-size:.8rem;letter-spacing:.26em;text-transform:uppercase;animation:emergi 1.4s 1.5s both}
+/* il cursore sposta la luce: metà destra appena più chiara, a tinta piatta */
+.a .meta{position:absolute;top:0;bottom:0;left:50%;right:0;background:#6b7b83;transition:left .9s cubic-bezier(.2,.7,.2,1)}
+</style>
+</head>
+<body>
+<nav class="nav nav--chiara"><span></span><ul>
+  <li><a href="lavori/">Lavori</a></li><li><a href="studio.html">Studio</a></li><li><a href="contatti.html">Contatti</a></li>
+</ul></nav>
+<main class="a">
+  <div class="meta" aria-hidden="true"></div>
+  <span class="linea su" aria-hidden="true"></span>
+  <div class="centro">
+    <img src="assets/logo-bianco.svg" alt="The Symbol">
+    <p class="claim">Design your story</p>
+  </div>
+  <span class="linea giu" aria-hidden="true"></span>
+</main>
+</body>
+</html>

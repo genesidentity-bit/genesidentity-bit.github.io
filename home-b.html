@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Symbol — Design your story · Opzione B</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/logo.svg">
+<link rel="stylesheet" href="assets/style.css?v=5">
+<style>
+/* OPZIONE B — L'ora. Avorio piatto e un'ombra netta che si sposta lenta, come il sole su una parete. */
+.b{position:relative;height:100vh;min-height:560px;background:var(--avorio);overflow:hidden;color:var(--inchiostro)}
+.b .ombra{position:absolute;inset:0;background:#8a8486;
+  clip-path:polygon(0 0,100% 0,100% 100%,78% 100%,44% 30%,0 30%);
+  animation:ora 18s ease-in-out infinite alternate}
+@keyframes ora{
+  from{clip-path:polygon(0 0,100% 0,100% 100%,78% 100%,44% 30%,0 30%)}
+  to  {clip-path:polygon(0 0,100% 0,100% 100%,60% 100%,38% 42%,0 42%)}}
+.b .asse{position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--inchiostro);padding:0}
+.b .asse::before{display:none}
+.b .centro{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;flex-direction:column;
+  align-items:center;gap:30px;padding:28px 0}
+.b .logo-box{padding:22px 0}
+.b .centro img{width:min(260px,52vw);animation:emergi 1.6s .3s both}
+.b .claim{margin:0;padding:12px 0;font-size:.8rem;letter-spacing:.26em;text-transform:uppercase;color:var(--ardesia);animation:emergi 1.6s .8s both}
+/* la linea si interrompe dietro logo e claim */
+.b .taglio{background:linear-gradient(90deg,transparent calc(50% - 1px),var(--avorio) calc(50% - 1px),var(--avorio) calc(50% + 1px),transparent calc(50% + 1px))}
+.b .nav{color:var(--inchiostro)}
+</style>
+</head>
+<body>
+<nav class="nav"><span></span><ul>
+  <li><a href="lavori/">Lavori</a></li><li><a href="studio.html">Studio</a></li><li><a href="contatti.html">Contatti</a></li>
+</ul></nav>
+<main class="b">
+  <div class="ombra" aria-hidden="true"></div>
+  <span class="asse" aria-hidden="true"></span>
+  <div class="centro">
+    <div class="logo-box taglio"><img src="assets/logo.svg" alt="The Symbol"></div>
+    <p class="claim taglio">Design your story</p>
+  </div>
+</main>
+</body>
+</html>
