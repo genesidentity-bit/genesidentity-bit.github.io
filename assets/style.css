@@ -28,9 +28,13 @@ img{max-width:100%;display:block}
 
 /* ——— HOME: la soglia ——— */
 .soglia{position:relative;height:100vh;min-height:560px;overflow:hidden;color:#fff;
-  background:linear-gradient(90deg,#0b0c0d 0%,#111416 49.8%,#5d6a71 50.2%,#46525a 100%)}
-.soglia::before{content:"";position:absolute;inset:0;
-  background:radial-gradient(ellipse at 50% 50%,rgba(0,0,0,0) 30%,rgba(0,0,0,.55) 100%)}
+  background:linear-gradient(90deg,#16191b 0%,#22272a 50%,#3f4a50 100%)}
+/* metà sinistra in ombra, metà destra in luce: il taglio è netto solo lungo la fessura */
+.soglia::before,.soglia::after{content:"";position:absolute;top:0;bottom:0;width:50%;
+  -webkit-mask-image:linear-gradient(180deg,transparent 8%,#000 30%,#000 70%,transparent 92%);
+          mask-image:linear-gradient(180deg,transparent 8%,#000 30%,#000 70%,transparent 92%)}
+.soglia::before{left:0;background:linear-gradient(90deg,rgba(0,0,0,.35),#000)}
+.soglia::after{right:0;background:linear-gradient(90deg,#66757c,rgba(80,94,101,.35))}
 .fessura{position:absolute;left:50%;top:24%;height:52%;width:2px;transform:translateX(-50%);
   background:linear-gradient(180deg,transparent,#e8eef1 12%,#fff 50%,#e8eef1 88%,transparent);
   box-shadow:0 0 18px 2px rgba(230,240,245,.35),18px 0 90px 30px rgba(140,160,170,.18);
@@ -102,3 +106,4 @@ a:hover .copertina{transform:scale(1.015)}
   .piede{flex-direction:column;gap:6px;padding:22px 24px}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.soglia > *{z-index:1}
