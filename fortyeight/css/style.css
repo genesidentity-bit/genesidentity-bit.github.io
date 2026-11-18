@@ -600,7 +600,7 @@ a:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }
 .panel-stage .counter {
   position: absolute; left: 46.3vw; top: 72%; z-index: 5; transition: top 0.4s ease;
   display: none; align-items: center; gap: 1rem;
-  font-size: 1rem; line-height: 1.5rem; letter-spacing: 0.08em; color: var(--soft);
+  font-size: 0.75rem; line-height: 1.5rem; letter-spacing: 0.08em; color: var(--soft);
 }
 .panel-stage .counter.on { display: flex; }
 .counter b { font-weight: 400; color: var(--navy); }
