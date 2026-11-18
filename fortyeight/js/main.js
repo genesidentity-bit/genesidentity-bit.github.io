@@ -365,7 +365,7 @@
     stage.appendChild(pager);
     var counter = document.createElement("div");
     counter.className = "counter";
-    counter.innerHTML = '<button type="button" class="ct-prev" aria-label="Previous">&lsaquo;</button><span class="ct-num"></span><button type="button" class="ct-next" aria-label="Next">&rsaquo;</button>';
+    counter.innerHTML = '<button type="button" class="ct-prev" aria-label="Previous"><svg viewBox="0 0 24 48" aria-hidden="true"><path d="M18 2 L4 24 L18 46"/></svg></button><span class="ct-num"></span><button type="button" class="ct-next" aria-label="Next"><svg viewBox="0 0 24 48" aria-hidden="true"><path d="M6 2 L20 24 L6 46"/></svg></button>';
     stage.appendChild(counter);
     var ctPrev = counter.querySelector(".ct-prev"), ctNext = counter.querySelector(".ct-next"), ctNum = counter.querySelector(".ct-num");
     function grp(s) { return s.section; }
