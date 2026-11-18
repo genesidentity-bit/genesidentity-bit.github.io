@@ -355,9 +355,15 @@
       if (t === curTitle) return;
       var first = curTitle === null;
       curTitle = t;
-      if (instant || first || reduce) { labels.forEach(function (l) { l.textContent = t; l.style.opacity = ""; }); return; }
-      labels.forEach(function (l) { l.style.opacity = "0"; });
-      setTimeout(function () { labels.forEach(function (l) { l.textContent = t; l.style.opacity = "1"; }); }, 380);
+      if (instant || first || reduce) { labels.forEach(function (l) { l.textContent = t; l.style.opacity = ""; l.style.translate = ""; l.style.transition = ""; }); return; }
+      labels.forEach(function (l) { l.style.transition = "opacity 0.35s ease"; l.style.opacity = "0"; });
+      setTimeout(function () {
+        labels.forEach(function (l) {
+          l.textContent = t;
+          l.style.transition = "none"; l.style.translate = "-1.5rem 0"; void l.offsetWidth;
+          l.style.transition = "opacity 0.7s ease, translate 0.7s ease"; l.style.opacity = "1"; l.style.translate = "0 0";
+        });
+      }, 380);
     }
     var pager = document.createElement("nav");
     pager.className = "pager"; pager.setAttribute("aria-label", "Previous / next");
