@@ -385,8 +385,22 @@
       var r = grpRange(n), size = r[1] - r[0] + 1;
       counter.classList.toggle("on", size > 1);
       if (size < 2) return;
-      var cur = n - r[0] + 1;
-      ctNum.innerHTML = "<b>" + (cur < 10 ? "0" : "") + cur + "</b> / " + (size < 10 ? "0" : "") + size;
+      var cur = n - r[0] + 1, hasTeam = false, k;
+      for (k = r[0]; k <= r[1]; k++) if (slides[k].team) hasTeam = true;
+      if (!window.matchMedia("(min-width: 1400px) and (min-height: 800px)").matches) hasTeam = false;
+      ctNum.classList.toggle("names", hasTeam); counter.classList.toggle("names-mode", hasTeam); counter.classList.toggle("on-team", hasTeam && !!slides[n].team);
+      if (hasTeam) {
+        var h = "";
+        for (k = r[0]; k <= r[1]; k++) {
+          if (!slides[k].team) continue;
+          var nm = slides[k].team ? slides[k].el.querySelector("h2").textContent.trim().split(/\s+/).slice(1).join(" ") : slides[k].title;
+          if (h) h += '<span class="ct-sep" aria-hidden="true">/</span>';
+          h += '<button type="button" class="ct-name' + (k === n ? " on" : "") + '" data-n="' + k + '">' + nm + "</button>";
+        }
+        ctNum.innerHTML = h;
+      } else {
+        ctNum.innerHTML = "<b>" + (cur < 10 ? "0" : "") + cur + "</b> / " + (size < 10 ? "0" : "") + size;
+      }
       ctPrev.disabled = n <= r[0]; ctNext.disabled = n >= r[1];
     }
     /* nelle schede del team il contatore sta alla stessa altezza del telefono */
@@ -406,7 +420,16 @@
       counter.style.top = Math.round(phoneCenter - rs.top - rc.height / 2) + "px";
     }
     window.addEventListener("resize", alignCounter);
+    var wideNow = window.matchMedia("(min-width: 1400px) and (min-height: 800px)").matches;
+    window.addEventListener("resize", function () {
+      var w = window.matchMedia("(min-width: 1400px) and (min-height: 800px)").matches;
+      if (w !== wideNow) { wideNow = w; if (curSlide >= 0) updCounter(curSlide); }
+    });
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(alignCounter);
+    ctNum.addEventListener("click", function (e) {
+      var b = e.target.closest && e.target.closest(".ct-name");
+      if (b) goPos(parseInt(b.getAttribute("data-n"), 10) + 2);
+    });
     ctPrev.addEventListener("click", function () { goPos(pos - 1); });
     ctNext.addEventListener("click", function () { goPos(pos + 1); });
     var pgPrev = pager.querySelector(".pg-prev"), pgNext = pager.querySelector(".pg-next");
