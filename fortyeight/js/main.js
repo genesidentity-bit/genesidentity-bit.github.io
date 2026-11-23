@@ -384,6 +384,7 @@
     function updCounter(n) {
       var r = grpRange(n), size = r[1] - r[0] + 1;
       counter.classList.toggle("on", size > 1);
+      counter.classList.toggle("sec-how", slides[n].section === "how");
       if (size < 2) return;
       var cur = n - r[0] + 1, hasTeam = false, k;
       for (k = r[0]; k <= r[1]; k++) if (slides[k].team) hasTeam = true;
@@ -406,6 +407,17 @@
     /* nelle schede del team il contatore sta alla stessa altezza del telefono */
     function alignCounter() {
       counter.style.top = "";
+      /* how: numerazione alzata della metà dello spazio tra il testo più lungo e la posizione base */
+      var op = counter.offsetParent, mb = 0;
+      if (op) {
+        var pr = op.getBoundingClientRect();
+        slides.forEach(function (s) {
+          if (s.section !== "how") return;
+          s.el.querySelectorAll("p, h3, h4, .content *").forEach(function (e) { var b = e.getBoundingClientRect().bottom; if (e.getBoundingClientRect().height && b > mb) mb = b; });
+        });
+        var up = Math.max(0, Math.round((pr.top + pr.height * 0.72 - mb) / 2));
+        counter.style.setProperty("--how-up", up + "px");
+      }
       return; /* altezza fissa come nella prima schermata */
       if (!stage.classList.contains("in-team")) return;
       var tel = null, k;
