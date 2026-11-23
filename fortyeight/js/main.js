@@ -453,11 +453,14 @@
       var st = secStarts(), si = secIndex();
       if (si < st.length - 1) goPos(st[si + 1] + 2);
     });
+    var hideTimer = null;
+    function unhideMid() { clearTimeout(hideTimer); slides.forEach(function (o) { o.el.style.visibility = ""; }); }
     function setSlide(n, instant) {
       n = Math.max(0, Math.min(S - 1, n));
       var sl = slides[n];
       if (tfPending) tfPending();
-      var teamFade = !instant && !reduce && curSlide >= 0 && curSlide !== n && ((slides[curSlide].section === sl.section && slides[curSlide].team === sl.team) || Math.abs(n - curSlide) > 1);   /* salto di più schede: dissolvenza, così le intermedie non scorrono */   /* stessa sezione (team→team, how→how): dissolvenza */
+      unhideMid();
+      var teamFade = !instant && !reduce && curSlide >= 0 && curSlide !== n && ((slides[curSlide].section === sl.section && slides[curSlide].team === sl.team) || (Math.abs(n - curSlide) > 1 && slides[curSlide].section === sl.section));   /* salto di più schede: dissolvenza, così le intermedie non scorrono */   /* stessa sezione (team→team, how→how): dissolvenza */
       function jump() {
         strip.style.transition = "none";
         stage.style.setProperty("--i", n);
@@ -482,6 +485,12 @@
         /* tra sezioni più lento; dentro le persone (cognomi) resta la velocità normale */
         var bothT = curSlide >= 0 && slides[curSlide].team && sl.team;
         strip.style.transitionDuration = bothT ? "" : "1.3s";
+        /* salto tra sezioni (menu): scorre ma le schede intermedie restano nascoste */
+        if (curSlide >= 0 && Math.abs(n - curSlide) > 1) {
+          var from = curSlide;
+          slides.forEach(function (o, k) { if (k !== from && k !== n) o.el.style.visibility = "hidden"; });
+          hideTimer = setTimeout(unhideMid, 1450);
+        }
         stage.style.setProperty("--i", n);
       }
       slides.forEach(function (o, k) {
