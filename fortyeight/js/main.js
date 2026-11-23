@@ -318,7 +318,25 @@
     order.slice(1).forEach(function (pid) { var p = byId(pid); if (p && p.parentNode) p.parentNode.removeChild(p); });
     /* i contenuti di who sono già stati spostati: ripulisco il livello chiaro */
     Array.prototype.slice.call(cream.children).forEach(function (c) { if (!isChrome(c)) cream.removeChild(c); });
-    cream.appendChild(strip);
+    /* maschera sfumata lungo la diagonale: attiva solo durante lo scorrimento */
+    var smask = document.createElement("div");
+    smask.className = "strip-mask";
+    smask.appendChild(strip);
+    cream.appendChild(smask);
+    function setMaskGeom() {
+      var W = stage.clientWidth, H = stage.clientHeight, g = Math.sqrt(H * H + 0.390625 * W * W);
+      smask.style.setProperty("--ang", (Math.atan2(H, -0.625 * W) * 180 / Math.PI) + "deg");
+      smask.style.setProperty("--d0", (0.625 * W * H / g) + "px");
+      smask.style.setProperty("--fw", (W * 0.16) + "px");
+    }
+    var maskTimer = null;
+    function maskScroll(ms) {
+      if (reduce) return;
+      setMaskGeom();
+      clearTimeout(maskTimer);
+      smask.classList.add("scrolling");
+      maskTimer = setTimeout(function () { smask.classList.remove("scrolling"); }, Math.max(200, ms - 250));
+    }
     if (teamDots) cream.appendChild(teamDots);
     stage.id = "stage";
     stage.classList.add("panel-stage");
@@ -520,6 +538,7 @@
         /* tra sezioni più lento; dentro le persone (cognomi) resta la velocità normale */
         var bothT = curSlide >= 0 && slides[curSlide].team && sl.team;
         strip.style.transitionDuration = bothT ? "" : "1.3s";
+        maskScroll(bothT ? 900 : 1300);
         /* salto tra sezioni (menu): scorre ma le schede intermedie restano nascoste */
         if (curSlide >= 0 && Math.abs(n - curSlide) > 1) {
           var from = curSlide;

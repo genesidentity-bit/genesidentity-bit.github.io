@@ -654,3 +654,13 @@ a:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }
 @keyframes sh-nudge { 0%, 100% { transform: translateX(0); opacity: 0.5; } 50% { transform: translateX(0.3rem); opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .scroll-hint .sh-chev, .scroll-hint .sh-wheel { animation: none; } }
 @media (max-width: 767px) { .scroll-hint { display: none; } }
+
+/* ---------- sfumatura sulla diagonale durante lo scorrimento ---------- */
+@property --fade { syntax: "<length>"; inherits: true; initial-value: 0px; }
+.strip-mask {
+  position: absolute; inset: 0; --fade: 0px; pointer-events: none;
+  transition: --fade 0.6s ease;
+  -webkit-mask-image: linear-gradient(var(--ang, 125deg), transparent 0, transparent var(--d0, 0px), #000 calc(var(--d0, 0px) + var(--fade)), #000 100%);
+          mask-image: linear-gradient(var(--ang, 125deg), transparent 0, transparent var(--d0, 0px), #000 calc(var(--d0, 0px) + var(--fade)), #000 100%);
+}
+.strip-mask.scrolling { --fade: var(--fw, 200px); transition-duration: 0.3s; }
