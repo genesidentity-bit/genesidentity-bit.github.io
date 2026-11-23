@@ -457,8 +457,7 @@
       n = Math.max(0, Math.min(S - 1, n));
       var sl = slides[n];
       if (tfPending) tfPending();
-      var bothTeam = curSlide >= 0 && slides[curSlide].team && sl.team;   /* da una persona all'altra: scorrimento orizzontale */
-      var teamFade = !instant && !reduce && curSlide >= 0 && curSlide !== n && !bothTeam && ((slides[curSlide].section === sl.section && slides[curSlide].team === sl.team) || Math.abs(n - curSlide) > 1);   /* salto di più schede: dissolvenza, così le intermedie non scorrono */   /* stessa sezione (team→team, how→how): dissolvenza */
+      var teamFade = !instant && !reduce && curSlide >= 0 && curSlide !== n && ((slides[curSlide].section === sl.section && slides[curSlide].team === sl.team) || Math.abs(n - curSlide) > 1);   /* salto di più schede: dissolvenza, così le intermedie non scorrono */   /* stessa sezione (team→team, how→how): dissolvenza */
       function jump() {
         strip.style.transition = "none";
         stage.style.setProperty("--i", n);
