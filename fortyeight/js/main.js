@@ -351,10 +351,47 @@
     function ease(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
     function trackPanel() { return Math.max(0, Math.min(2, Math.round(track.scrollLeft / track.clientWidth))); }
 
-    function setTitle(t, instant) {
-      if (t === curTitle) return;
+    var SLIDE_EASE = "cubic-bezier(.65, 0, .35, 1)", slideCleanup = null;
+    function endSlideSection() { if (slideCleanup) { slideCleanup(); slideCleanup = null; } }
+    /* cambio sezione con scorrimento: titolo e numerazione/cognomi scorrono dentro insieme al contenuto */
+    function slideSection(dir, W, oldCounter) {
+      endSlideSection();
+      var made = [];
+      labels.forEach(function (l) {
+        var c = l.cloneNode(true);
+        c.textContent = curTitleOld; c.setAttribute("aria-hidden", "true"); c.style.pointerEvents = "none";
+        l.parentNode.insertBefore(c, l); made.push(c);
+        c.style.transition = "none"; c.style.opacity = "1"; c.style.translate = "0 0";
+        l.style.transition = "none"; l.style.opacity = "1"; l.style.translate = (dir * W) + "px 0";
+      });
+      var cNew = counter;
+      cNew.style.transition = "none"; cNew.style.translate = (dir * W) + "px 0";
+      if (oldCounter) { made.push(oldCounter); oldCounter.style.transition = "none"; oldCounter.style.translate = "0 0"; oldCounter.style.pointerEvents = "none"; oldCounter.setAttribute("aria-hidden", "true"); counter.parentNode.insertBefore(oldCounter, counter); }
+      void stage.offsetWidth;
+      var tr = "translate 1.3s " + SLIDE_EASE;
+      labels.forEach(function (l) { l.style.transition = tr; l.style.translate = "0 0"; });
+      made.forEach(function (c) { c.style.transition = tr; c.style.translate = (-dir * W) + "px 0"; });
+      cNew.style.transition = "top 0.4s ease, " + tr; cNew.style.translate = "0 0";
+      var tm = setTimeout(function () { slideCleanup && (slideCleanup(), slideCleanup = null); }, 1400);
+      slideCleanup = function () {
+        clearTimeout(tm);
+        made.forEach(function (c) { if (c.parentNode) c.parentNode.removeChild(c); });
+        labels.forEach(function (l) { l.style.transition = ""; l.style.translate = ""; });
+        cNew.style.transition = ""; cNew.style.translate = "";
+      };
+    }
+    var curTitleOld = "";
+    function setTitle(t, instant, slideDir, oldCounter) {
+      if (t === curTitle) { if (oldCounter && oldCounter.parentNode) oldCounter.parentNode.removeChild(oldCounter); return; }
       var first = curTitle === null;
+      curTitleOld = curTitle;
       curTitle = t;
+      if (slideDir && !instant && !first && !reduce) {
+        labels.forEach(function (l) { l.textContent = t; });
+        slideSection(slideDir, stage.getBoundingClientRect().width, oldCounter);
+        return;
+      }
+      endSlideSection();
       if (instant || first || reduce) { labels.forEach(function (l) { l.textContent = t; l.style.opacity = ""; l.style.translate = ""; l.style.transition = ""; }); return; }
       labels.forEach(function (l) { l.style.transition = "opacity 0.35s ease"; l.style.opacity = "0"; });
       setTimeout(function () {
@@ -510,6 +547,8 @@
         else { o.el.setAttribute("inert", ""); o.el.setAttribute("aria-hidden", "true"); }
       });
       stage.classList.toggle("in-team", sl.team);
+      var secSlide = !instant && !reduce && !teamFade && curSlide >= 0 && slides[curSlide].section !== sl.section;
+      var oldCounter = secSlide ? counter.cloneNode(true) : null;
       updCounter(n);
       alignCounter();
       dotEls.forEach(function (d, k) { d.classList.toggle("on", slides[n].team && k === n - slides.findIndex(function (x) { return x.team; })); });
@@ -519,7 +558,7 @@
         a.classList.toggle("active", on);
         if (on) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
       });
-      setTitle(sl.title, instant);
+      setTitle(sl.title, instant, secSlide ? (n > curSlide ? 1 : -1) : 0, oldCounter);
       curSlide = n;
     }
     function setActivePanel() {
@@ -542,7 +581,7 @@
       }
       var from = track.scrollLeft, dist = to - from;
       if (Math.abs(dist) < 1) { animating = false; return; }
-      var dur = Math.min(1500, 900 + 150 * (Math.abs(dist) / track.clientWidth - 1));
+      var dur = Math.min(1900, 1300 + 150 * (Math.abs(dist) / track.clientWidth - 1));
       var t0 = null;
       animating = true;
       track.style.scrollSnapType = "none";
