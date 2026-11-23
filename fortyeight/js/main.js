@@ -100,7 +100,7 @@
     }
     var from = track.scrollLeft, dist = to - from;
     if (Math.abs(dist) < 1) { animating = false; setActive(idx); return; }
-    var dur = Math.min(1500, 900 + 150 * (Math.abs(dist) / track.clientWidth - 1));   /* 0,9 s per un passo, fino a 1,5 s */
+    var dur = Math.min(1900, 1300 + 150 * (Math.abs(dist) / track.clientWidth - 1));   /* 0,9 s per un passo, fino a 1,5 s */
     var t0 = null;
     animating = true;
     track.style.scrollSnapType = "none";          /* lo snap non deve interferire con l'animazione */
@@ -479,6 +479,9 @@
       } else if (instant || reduce) {
         jump();
       } else {
+        /* tra sezioni più lento; dentro le persone (cognomi) resta la velocità normale */
+        var bothT = curSlide >= 0 && slides[curSlide].team && sl.team;
+        strip.style.transitionDuration = bothT ? "" : "1.3s";
         stage.style.setProperty("--i", n);
       }
       slides.forEach(function (o, k) {
