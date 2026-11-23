@@ -561,8 +561,20 @@
       setTitle(sl.title, instant, secSlide ? (n > curSlide ? 1 : -1) : 0, oldCounter);
       curSlide = n;
     }
+    /* indizio: la navigazione funziona anche con la rotella; sparisce alla prima rotellata o tasto freccia */
+    var hint = document.createElement("div");
+    hint.className = "scroll-hint";
+    hint.setAttribute("aria-hidden", "true");
+    hint.innerHTML = '<svg class="sh-mouse" viewBox="0 0 16 26"><rect x="1" y="1" width="14" height="24" rx="7"/><line class="sh-wheel" x1="8" y1="6" x2="8" y2="10"/></svg><svg class="sh-chev" viewBox="0 0 24 48"><path d="M6 2 L20 24 L6 46"/></svg>';
+    document.body.appendChild(hint);
+    var hintUsed = false;
+    function updHint() { hint.classList.toggle("on", !hintUsed && pos <= 2); hint.classList.toggle("dark", pos >= 2); }
+    function hintDone() { hintUsed = true; updHint(); }
+    window.addEventListener("wheel", hintDone, { passive: true, once: true });
+    window.addEventListener("keydown", function (e) { if (/^(Arrow|Page| |Home|End)/.test(e.key)) hintDone(); });
     function setActivePanel() {
       var pi = panelOf(pos);
+      updHint();
       pgPrev.disabled = pos < 2 || (secIndex() === 0 && pos - 2 <= secStarts()[0]); pgNext.disabled = pos < 2 || secIndex() >= secStarts().length - 1;
       panels.forEach(function (p, k) { p.classList.toggle("is-active", k === pi); });
       if (pi < 2) Object.keys(texes).forEach(function (k) { texes[k].classList.remove("on"); });
