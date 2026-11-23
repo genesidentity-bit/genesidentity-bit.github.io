@@ -376,7 +376,7 @@
       var first = curTitle === null;
       curTitleOld = curTitle;
       curTitle = t;
-      if (slideDir && !instant && !first && !reduce) slideSection(slideDir, stage.getBoundingClientRect().width, oldCounter);
+      if (slideDir && !instant && !first && !reduce) slideSection(slideDir < 0 ? -1 : 1, stage.getBoundingClientRect().width * Math.abs(slideDir), oldCounter);
       else endSlideSection();
       if (instant || first || reduce) { labels.forEach(function (l) { l.textContent = t; l.style.opacity = ""; l.style.translate = ""; l.style.transition = ""; }); return; }
       labels.forEach(function (l) { l.style.transition = "opacity 0.35s ease"; l.style.opacity = "0"; });
@@ -544,7 +544,7 @@
         a.classList.toggle("active", on);
         if (on) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
       });
-      setTitle(sl.title, instant, secSlide ? (n > curSlide ? 1 : -1) : 0, oldCounter);
+      setTitle(sl.title, instant, secSlide ? (n - curSlide) : 0, oldCounter);
       curSlide = n;
     }
     /* indizio: la navigazione funziona anche con la rotella; sparisce alla prima rotellata o tasto freccia */
