@@ -356,27 +356,17 @@
     /* cambio sezione con scorrimento: titolo e numerazione/cognomi scorrono dentro insieme al contenuto */
     function slideSection(dir, W, oldCounter) {
       endSlideSection();
-      var made = [];
-      labels.forEach(function (l) {
-        var c = l.cloneNode(true);
-        c.textContent = curTitleOld; c.setAttribute("aria-hidden", "true"); c.style.pointerEvents = "none";
-        l.parentNode.insertBefore(c, l); made.push(c);
-        c.style.transition = "none"; c.style.opacity = "1"; c.style.translate = "0 0";
-        l.style.transition = "none"; l.style.opacity = "1"; l.style.translate = (dir * W) + "px 0";
-      });
-      var cNew = counter;
+      var made = [], cNew = counter;
       cNew.style.transition = "none"; cNew.style.translate = (dir * W) + "px 0";
       if (oldCounter) { made.push(oldCounter); oldCounter.style.transition = "none"; oldCounter.style.translate = "0 0"; oldCounter.style.pointerEvents = "none"; oldCounter.setAttribute("aria-hidden", "true"); counter.parentNode.insertBefore(oldCounter, counter); }
       void stage.offsetWidth;
       var tr = "translate 1.3s " + SLIDE_EASE;
-      labels.forEach(function (l) { l.style.transition = tr; l.style.translate = "0 0"; });
       made.forEach(function (c) { c.style.transition = tr; c.style.translate = (-dir * W) + "px 0"; });
       cNew.style.transition = "top 0.4s ease, " + tr; cNew.style.translate = "0 0";
       var tm = setTimeout(function () { slideCleanup && (slideCleanup(), slideCleanup = null); }, 1400);
       slideCleanup = function () {
         clearTimeout(tm);
         made.forEach(function (c) { if (c.parentNode) c.parentNode.removeChild(c); });
-        labels.forEach(function (l) { l.style.transition = ""; l.style.translate = ""; });
         cNew.style.transition = ""; cNew.style.translate = "";
       };
     }
@@ -386,12 +376,8 @@
       var first = curTitle === null;
       curTitleOld = curTitle;
       curTitle = t;
-      if (slideDir && !instant && !first && !reduce) {
-        labels.forEach(function (l) { l.textContent = t; });
-        slideSection(slideDir, stage.getBoundingClientRect().width, oldCounter);
-        return;
-      }
-      endSlideSection();
+      if (slideDir && !instant && !first && !reduce) slideSection(slideDir, stage.getBoundingClientRect().width, oldCounter);
+      else endSlideSection();
       if (instant || first || reduce) { labels.forEach(function (l) { l.textContent = t; l.style.opacity = ""; l.style.translate = ""; l.style.transition = ""; }); return; }
       labels.forEach(function (l) { l.style.transition = "opacity 0.35s ease"; l.style.opacity = "0"; });
       setTimeout(function () {
