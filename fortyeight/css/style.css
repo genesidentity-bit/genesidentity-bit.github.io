@@ -593,6 +593,8 @@ a:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }
   #how::after, #for::after, #where::after { display: none; }
   .sec .panel { min-height: 0; }
   #who .content, #how .content, #for .content, #where .content { padding-top: 0.5rem; }
+  /* ultima sezione abbastanza alta da portare il suo titolo in cima: «for» esce e resta solo «where» */
+  #where { min-height: calc(100vh - 16.65rem); min-height: calc(100svh - 16.65rem); }
 }
 
 /* desktop: contatore numerico al posto dei puntini */
