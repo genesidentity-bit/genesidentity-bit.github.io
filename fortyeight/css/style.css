@@ -99,6 +99,12 @@ a:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }
 #for::before   { background-image: url("../assets/thin-pattern-for.png"); }
 #where::before { background-image: url("../assets/thin-pattern-where.png"); }
 
+/* desktop: home e menu hanno la stessa texture (stessa immagine, stesso verso, stessa fase): passando dalla prima alla seconda schermata non cambia */
+@media (min-width: 768px) {
+  #home::before { background-image: url("../assets/thin-pattern-menu.png"); }
+  #home::before, #menu::before { animation-delay: 0s; }
+}
+
 /* ---------- diagonale: due livelli, stesso taglio ---------- */
 .layer { position: absolute; inset: 0; }
 .layer.blue  { clip-path: var(--blue-clip);  color: var(--cream); }
@@ -390,16 +396,16 @@ a:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }
   .panel::before {
     inset: 0 0 auto 0;
     height: 8rem;
-    background: var(--navy) url("../assets/thin-pattern-m.png") 0% 50% / 100% auto no-repeat;
+    background: var(--navy) url("../assets/thin-pattern.png") 0% 50% / 100% auto no-repeat;
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 3.5rem), 0 100%);
     transform: none; will-change: auto;
-    animation: texture-m 2.5s ease-in-out infinite alternate;
+    animation: texture-m var(--tex-dur, 7s) ease-in-out infinite alternate;
     animation-play-state: paused;
   }
   .panel.is-active::before { animation-play-state: running; }
   @keyframes texture-m {
-    from { background-size: 100% auto; }
-    to   { background-size: 122% auto; }
+    from { background-size: 100% auto; background-position: var(--mx-a, 0%) 50%; }
+    to   { background-size: var(--mz, 122%) auto; background-position: var(--mx-b, 100%) 50%; }
   }
   #menu::before  { background-image: url("../assets/thin-pattern-menu.png"); }
   #who::before   { background-image: url("../assets/thin-pattern-who.png"); }
@@ -459,8 +465,8 @@ a:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }
   .panel-home { background: var(--navy); justify-content: center; }
   .panel-home::before, .panel-menu::before { height: 100%; clip-path: none; background-size: auto 100%; animation-name: texture-m-full; }
   @keyframes texture-m-full {
-    from { background-size: auto 100%; }
-    to   { background-size: auto 122%; }
+    from { background-size: auto 100%; background-position: var(--mx-a, 0%) 50%; }
+    to   { background-size: auto var(--mz, 122%); background-position: var(--mx-b, 100%) 50%; }
   }
   .hero { position: static; transform: none; flex-direction: column; align-items: flex-start; gap: 2rem; padding: 0 1.5rem; }
   .hero img { height: 11rem; }
@@ -574,10 +580,10 @@ a:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }
     display: block;
     position: fixed; top: 0; left: 0; right: 0; z-index: 40;
     height: 10.625rem;
-    background: var(--navy) url("../assets/thin-pattern-m.png") 0% 50% / 100% auto no-repeat;
+    background: var(--navy) url("../assets/thin-pattern.png") 0% 50% / 100% auto no-repeat;
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 3.875rem), 0 100%);
     transition: opacity 0.5s ease;
-    animation: texture-m 2.5s ease-in-out infinite alternate;
+    animation: texture-m var(--tex-dur, 7s) ease-in-out infinite alternate;
   }
   .band .logo { display: block; position: absolute; left: 1.5rem; top: 1.5rem; width: 5.5rem; }   /* bordo alto allineato all'hamburger */
   .on-home .band { opacity: 0; pointer-events: none; }
