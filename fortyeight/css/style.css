@@ -477,16 +477,21 @@ a:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }
   .menu { display: none; }
   .burger {
     display: block;
-    position: fixed; top: 1.5rem; right: 1.5rem; z-index: 60;
-    width: 2.75rem; height: 2.75rem; border-radius: 50%;
-    border: 1px solid rgba(189, 190, 210, 0.55);
-    background: var(--navy);
+    position: fixed; top: 0.68rem; right: 1.5rem; z-index: 60;
+    width: 6.5rem; height: 2.75rem; border: 0; border-radius: 0; padding: 0;
+    background: transparent;
     -webkit-tap-highlight-color: transparent;
   }
+  .burger::before {
+    content: "menu"; position: absolute; right: 1.75rem; top: 50%; transform: translateY(-50%);
+    font-family: "Poppins", system-ui, sans-serif; font-size: 0.75rem; line-height: 1; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 400;
+    color: var(--cream); pointer-events: none;
+  }
+  .drawer-open .burger::before { content: "close"; }
   /* icona menu: uno slash con la stessa inclinazione del marchio /48 (42°); aperto diventa una X */
   .burger span {
-    position: absolute; left: 50%; top: 50%;
-    width: 1px; height: 1.5rem; margin: -0.75rem 0 0 -0.5px;
+    position: absolute; left: auto; right: 0.5rem; top: 50%;
+    width: 1px; height: 1.5rem; margin: -0.75rem 0 0 0;
     background: var(--cream);
     transform: rotate(42deg);
   }
