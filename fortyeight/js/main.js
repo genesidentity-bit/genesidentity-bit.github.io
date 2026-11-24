@@ -354,7 +354,7 @@
     var texes = {};
     texKeys.forEach(function (k) {
       var t = document.createElement("div");
-      t.className = "tex";
+      t.className = "tex"; t.setAttribute("data-tex", k);
       t.style.backgroundImage = 'url("assets/thin-pattern-' + k + '.png")';
       stage.insertBefore(t, stage.firstChild);
       texes[k] = t;

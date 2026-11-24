@@ -69,24 +69,24 @@ a:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }
   isolation: isolate;
 }
 
-/* ---------- texture: respiro lento ---------- */
+/* ---------- texture: scorrimento orizzontale + zoom (valori casuali a ogni apertura, vedi index.html) ---------- */
 .panel::before {
   content: "";
   position: absolute;
   inset: -3% 0;
   z-index: -1;
   background: url("../assets/thin-pattern.png") center / cover no-repeat;
-  transform-origin: 1% 50%;       /* ruota attorno al cerchio a sinistra */
+  transform-origin: 50% 50%;
   will-change: transform;
-  animation: texture 2.5s ease-in-out infinite alternate;
+  animation: texture var(--tex-dur, 7s) ease-in-out infinite alternate;
   animation-play-state: paused;
 }
 .panel.is-active::before { animation-play-state: running; }
 .panel:nth-child(2n)::before { animation-delay: -3s; }
 .panel:nth-child(3n)::before { animation-delay: -6s; }
 @keyframes texture {
-  from { transform: translate3d(0, 0, 0) scale(1); }
-  to   { transform: translate3d(-2%, 0, 0) scale(1.16) rotate(-2.2deg); }
+  from { transform: translate3d(var(--tx-a, -4.5%), var(--ty-a, 0%), 0) scale(var(--sc-a, 1.12), calc(var(--sc-a, 1.12) * var(--fy, 1))); }
+  to   { transform: translate3d(var(--tx-b, 4.5%), var(--ty-b, 0%), 0) scale(var(--sc-b, 1.18), calc(var(--sc-b, 1.18) * var(--fy, 1))); }
 }
 
 /* texture diversa per ogni pagina (stessa famiglia di linee, centro e ritmo diversi) */
@@ -343,11 +343,11 @@ a:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }
   inset: -3% 0;
   z-index: -1;
   background: center / cover no-repeat;
-  transform-origin: 1% 50%;
+  transform-origin: 50% 50%;
   will-change: transform, opacity;
   opacity: 0;
   transition: opacity 1s ease;
-  animation: texture 2.5s ease-in-out infinite alternate;
+  animation: texture var(--tex-dur, 7s) ease-in-out infinite alternate;
   animation-play-state: paused;
 }
 .tex.on { opacity: 1; animation-play-state: running; }
@@ -390,7 +390,7 @@ a:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }
   .panel::before {
     inset: 0 0 auto 0;
     height: 8rem;
-    background: var(--navy) url("../assets/thin-pattern.png") 0% 50% / 100% auto no-repeat;
+    background: var(--navy) url("../assets/thin-pattern-m.png") 0% 50% / 100% auto no-repeat;
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 3.5rem), 0 100%);
     transform: none; will-change: auto;
     animation: texture-m 2.5s ease-in-out infinite alternate;
@@ -574,7 +574,7 @@ a:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }
     display: block;
     position: fixed; top: 0; left: 0; right: 0; z-index: 40;
     height: 10.625rem;
-    background: var(--navy) url("../assets/thin-pattern.png") 0% 50% / 100% auto no-repeat;
+    background: var(--navy) url("../assets/thin-pattern-m.png") 0% 50% / 100% auto no-repeat;
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 3.875rem), 0 100%);
     transition: opacity 0.5s ease;
     animation: texture-m 2.5s ease-in-out infinite alternate;
