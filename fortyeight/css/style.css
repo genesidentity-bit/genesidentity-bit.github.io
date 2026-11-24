@@ -78,7 +78,7 @@ a:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }
   background: url("../assets/thin-pattern.png") center / cover no-repeat;
   transform-origin: 1% 50%;       /* ruota attorno al cerchio a sinistra */
   will-change: transform;
-  animation: texture 8s ease-in-out infinite alternate;
+  animation: texture 4s ease-in-out infinite alternate;
   animation-play-state: paused;
 }
 .panel.is-active::before { animation-play-state: running; }
@@ -347,7 +347,7 @@ a:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }
   will-change: transform, opacity;
   opacity: 0;
   transition: opacity 1s ease;
-  animation: texture 8s ease-in-out infinite alternate;
+  animation: texture 4s ease-in-out infinite alternate;
   animation-play-state: paused;
 }
 .tex.on { opacity: 1; animation-play-state: running; }
@@ -393,7 +393,7 @@ a:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }
     background: var(--navy) url("../assets/thin-pattern.png") 0% 50% / 100% auto no-repeat;
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 3.5rem), 0 100%);
     transform: none; will-change: auto;
-    animation: texture-m 8s ease-in-out infinite alternate;
+    animation: texture-m 4s ease-in-out infinite alternate;
     animation-play-state: paused;
   }
   .panel.is-active::before { animation-play-state: running; }
@@ -570,7 +570,7 @@ a:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }
     background: var(--navy) url("../assets/thin-pattern.png") 0% 50% / 100% auto no-repeat;
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 3.875rem), 0 100%);
     transition: opacity 0.5s ease;
-    animation: texture-m 8s ease-in-out infinite alternate;
+    animation: texture-m 4s ease-in-out infinite alternate;
   }
   .band .logo { display: block; position: absolute; left: 1.5rem; top: 1.5rem; width: 5.5rem; }   /* bordo alto allineato all'hamburger */
   .on-home .band { opacity: 0; pointer-events: none; }
