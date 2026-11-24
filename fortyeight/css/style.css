@@ -483,19 +483,21 @@ a:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }
     background: var(--navy);
     -webkit-tap-highlight-color: transparent;
   }
-  .burger span, .burger span::before, .burger span::after {
+  /* icona menu: uno slash con la stessa inclinazione del marchio /48 (42°); aperto diventa una X */
+  .burger span {
     position: absolute; left: 50%; top: 50%;
-    width: 1.1rem; height: 1px; margin-left: -0.55rem;
+    width: 1px; height: 1.5rem; margin: -0.75rem 0 0 -0.5px;
     background: var(--cream);
-    transition: transform 0.35s ease, background 0.2s ease;
+    transform: rotate(42deg);
   }
-  .burger span { margin-top: 0; }
-  .burger span::before, .burger span::after { content: ""; left: 0; margin-left: 0; }
-  .burger span::before { transform: translateY(-0.33rem); }
-  .burger span::after  { transform: translateY(0.33rem); }
-  .drawer-open .burger span { background: transparent; }
-  .drawer-open .burger span::before { transform: rotate(45deg); }
-  .drawer-open .burger span::after  { transform: rotate(-45deg); }
+  .burger span::before { display: none; }
+  .burger span::after {
+    content: ""; position: absolute; left: 0; top: 0; width: 1px; height: 100%;
+    background: var(--cream);
+    transform: rotate(-84deg) scaleY(0);
+    transition: transform 0.35s ease;
+  }
+  .drawer-open .burger span::after { transform: rotate(-84deg) scaleY(1); }
   .drawer {
     display: flex; flex-direction: column; justify-content: flex-start;
     position: fixed; inset: 0; z-index: 50;
