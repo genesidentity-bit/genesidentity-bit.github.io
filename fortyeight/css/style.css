@@ -399,13 +399,13 @@ a:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }
     background: var(--navy) url("../assets/thin-pattern.png") 0% 50% / 100% auto no-repeat;
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 3.5rem), 0 100%);
     transform: none; will-change: auto;
-    animation: texture-m var(--tex-dur, 7s) ease-in-out infinite alternate;
+    animation: texture-m var(--tex-dur-m, 16s) ease-in-out infinite alternate;
     animation-play-state: paused;
   }
   .panel.is-active::before { animation-play-state: running; }
   @keyframes texture-m {
-    from { background-size: 100% auto; background-position: var(--mx-a, 0%) 50%; }
-    to   { background-size: var(--mz, 122%) auto; background-position: var(--mx-b, 100%) 50%; }
+    from { background-size: 130% auto; background-position: var(--mx-a, 50%) 50%; }   /* il disco a sinistra resta fuori campo */
+    to   { background-size: var(--mz, 145%) auto; background-position: var(--mx-b, 100%) 50%; }
   }
   #menu::before  { background-image: url("../assets/thin-pattern-menu.png"); }
   #who::before   { background-image: url("../assets/thin-pattern-who.png"); }
@@ -465,8 +465,8 @@ a:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }
   .panel-home { background: var(--navy); justify-content: center; }
   .panel-home::before, .panel-menu::before { height: 100%; clip-path: none; background-size: auto 100%; animation-name: texture-m-full; }
   @keyframes texture-m-full {
-    from { background-size: auto 100%; background-position: var(--mx-a, 0%) 50%; }
-    to   { background-size: auto var(--mz, 122%); background-position: var(--mx-b, 100%) 50%; }
+    from { background-size: auto 100%; background-position: var(--mx-a, 50%) 50%; }
+    to   { background-size: auto var(--mz, 145%); background-position: var(--mx-b, 100%) 50%; }
   }
   .hero { position: static; transform: none; flex-direction: column; align-items: flex-start; gap: 2rem; padding: 0 1.5rem; }
   .hero img { height: 11rem; }
@@ -583,7 +583,7 @@ a:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }
     background: var(--navy) url("../assets/thin-pattern.png") 0% 50% / 100% auto no-repeat;
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 3.875rem), 0 100%);
     transition: opacity 0.5s ease;
-    animation: texture-m var(--tex-dur, 7s) ease-in-out infinite alternate;
+    animation: texture-m var(--tex-dur-m, 16s) ease-in-out infinite alternate;
   }
   .band .logo { display: block; position: absolute; left: 1.5rem; top: 1.5rem; width: 5.5rem; }   /* bordo alto allineato all'hamburger */
   .on-home .band { opacity: 0; pointer-events: none; }
