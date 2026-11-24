@@ -265,7 +265,7 @@
 
   /* home: dopo un tempo predefinito passa da sola al menu, se l'utente non ha ancora fatto nulla */
   var HOME_DELAY = 2000;   /* millisecondi */
-  if (idx === 0) {
+  if (idx === 0 && !mobile) {   /* su mobile resta ferma: si scorre con il dito */
     var auto = setTimeout(function () { if (idx === 0) goFade(1); }, HOME_DELAY);
     ["wheel", "keydown", "click", "touchstart", "hashchange"].forEach(function (ev) {
       window.addEventListener(ev, function () { clearTimeout(auto); }, { once: true, passive: true });
