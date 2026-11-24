@@ -1,6 +1,11 @@
 (function () {
   if (!window.matchMedia("(max-width: 767px)").matches) { initDesktop(); return; }
   var track = document.getElementById("track");
+  /* mobile: indizio di scorrimento verso il basso, solo sulla home */
+  var mh = document.createElement("div");
+  mh.className = "scroll-hint-m"; mh.setAttribute("aria-hidden", "true");
+  mh.innerHTML = '<svg viewBox="0 0 48 24"><path d="M2 6 L24 18 L46 6"/></svg>';
+  document.body.appendChild(mh);
   /* mobile: niente seconda home (#menu), c'è l'hamburger */
   if (window.matchMedia("(max-width: 767px)").matches) {
     var m2 = document.getElementById("menu");
